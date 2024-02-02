@@ -1,0 +1,31 @@
+Windows_Administration
+
+How to take a backup of a for IIS to restore the previous configuration and files of your website using Appcmd. 
+Perform this operation on Server Pc.
+Steps:
+1)Open a command prompt as an administrator.
+
+2)Type the following command and press Enter:
+
+ dism /online /enable-feature /featurename:IIS-WebServerManagementTools
+Above command is used to enable the feature IIS Management Scripts and Tools on your computer. This feature allows you to use appcmd, a command-line tool for managing IIS 7 and above.
+
+3)Wait for the installation to complete and close the command prompt.
+
+4)Now to change directory type the following command and press Enter: 
+cd %systemroot%\system32\inetsrv\
+
+5)To take a backup of a website using appcmd, you need to use the add backup command with the name of the backup. For example, if you want to backup the website named MySite, you can use this command:
+appcmd add backup MySite
+
+6)This will create a backup folder in the %systemroot%\system32\inetsrv\backup directory with the name MySite. The backup folder will contain the following files:
+administration.config
+applicationHost.config
+MBSchema.xml
+MetaBase.xml
+redirection.config
+These files store the configuration settings of your website and IIS. You can copy this folder to another location for safekeeping or restore it later using the restore backup command.
+
+7)If your website is not working fine, you can use the backup taken for IIS to restore the previous configuration and files of your website. To do this, you need to use the restore backup command with the name of the backup. For example, if you have a backup named MySite, you can use this command:
+appcmd restore backup MySite
+This will overwrite the current configuration and files of your website with the ones from the backup folder. You may need to restart IIS for the changes to take effect.
